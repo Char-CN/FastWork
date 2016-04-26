@@ -5,10 +5,34 @@
 #####################################
 s_p=`dirname $0`
 suffix=".go"
-if [ "$1" == "" ];then
+if [ "$1" == "" ]
+then
     echo "    usage : go hyy"
     echo "    please input paramter ..."
     exit -1
+elif [ "$1" == "config" ]
+then
+    function echo_file() {
+        while read line
+        do
+            m_name=`echo ${line} | cut -d ' ' -f 1`
+            if [[ "${line}" == "" || "${m_name:0:1}" == "#" ]]
+            then
+                continue
+            fi
+            arr_len=`echo ${line} | awk '{split($0,a," "); print length(a)}'`
+            if [ $[arr_len%2] == 0 ]
+            then
+                echo "    config [${m_name}] paramter length not valid ..."
+                continue
+            fi
+            echo "    config [${m_name}] : $line"
+        done<$1
+    }
+    echo "    ${s_p}/${suffix}"
+    echo_file ${s_p}/${suffix}
+    echo "    ${HOME}/${suffix}"
+    echo_file ${HOME}/${suffix}
 fi
 arr=""
 # read user config file [.go]
