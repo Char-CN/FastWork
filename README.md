@@ -1,12 +1,4 @@
 # FastWork
-1
-2
-3
-4
-5
-6
-7
-8
-9
-0
-111111111
+the project is the accumulation for my work...
+
+
