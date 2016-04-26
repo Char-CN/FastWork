@@ -1,0 +1,23 @@
+exsample ... 
+
+1.How to install go command?
+> sh install.sh -f
+> vi ~/.go
+> go hyy
+
+2.How to edit ~/.go file?
+> paramter :
+> alias name
+> [-h hostname]
+> [-u userName]
+> [-P password]
+> [-p port]
+> usage config :
+> hyy -h 192.168.0.110 -u root -P root -p 222
+> hyy2 -h 192.168.0.110 -u blazer
+
+3.How to use go command?
+> go hyy
+> go hyy2
+
+Thank you for reading...
