@@ -1,7 +1,5 @@
 1.How to install go command?
 > sh install.sh -f
-> vi ~/.go
-> go hyy
 
 2.How to edit ~/.go file?
 
