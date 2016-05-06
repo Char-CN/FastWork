@@ -1,5 +1,3 @@
-exsample ... 
-
 1.How to install go command?
 > sh install.sh -f
 > vi ~/.go
@@ -17,4 +15,3 @@ exsample ...
 4.How to use goscp command?
 > goscp hyy ~/test/*:~
 
-Thank you for reading...
