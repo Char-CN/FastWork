@@ -6,7 +6,7 @@ exsample ...
 > go hyy
 
 2.How to edit ~/.go file?
-> paramter : \
+> paramter : \n
 >   alias name \
 >   -h hostname \
 >   -u userName \
