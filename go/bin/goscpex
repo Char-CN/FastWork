@@ -8,7 +8,7 @@ set target_path ""
 set name ""
 set host ""
 set passwd ""
-set port "-p22"
+set port "-P22"
 foreach i { 0 2 4 6 8 10 } {
     #puts $i
     #puts [lindex $argv [expr {$i + 1}]]
@@ -32,7 +32,7 @@ foreach i { 0 2 4 6 8 10 } {
         set target_path "[lindex $argv [expr {$i + 1}]]"
     }
 }
-spawn bash -c "scp -r $local_path $name@$host$target_path"
+spawn bash -c "scp -r $port $local_path $name@$host$target_path"
 if { "$passwd" != ""  } {
     expect {
         "yes/no" { send "yes\r"; exp_continue }
