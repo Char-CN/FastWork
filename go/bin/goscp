@@ -1,5 +1,32 @@
 #!/bin/bash
-
-
-
-echo 
+#############################################
+# 1. edit ~/.go                             #
+# 2. command : goscp $name $local:$targer   #
+#############################################
+s_p=`dirname $0`
+source ${s_p}/gocommonsfunc
+if [[ "$1" == "config" || "$1" == "conf" ]]; then
+    ${s_p}/goconf
+    exit 0
+elif [[ "$1" == "" || "$2" == "" ]]; then
+    echo "    usage : goscp \$name \$local:\$targer"
+    echo "      please input paramter ..."
+    exit -1
+fi
+arr=$(get_go $1)
+if [ $? != 0 ]; then
+    echo "    $arr"
+    exit 0
+fi
+arr_len="`echo $2 | awk '{split($0,a,":"); print length(a)}'`"
+local_path=`echo $2 | awk '{split($0,a,":"); print a[1]}'`
+target_path=`echo $2 | awk '{split($0,a,":"); print a[2]}'`
+if [ "${arr_len}" != "1" ]; then
+    target_path=":$target_path"
+else
+    echo "    usage : goscp \$name \$local:\$targer"
+    echo "      please input ':' "
+    exit -1
+fi
+expect ${s_p}/goscpex $arr -l ${local_path} -t ${target_path}
+exit 0

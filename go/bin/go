@@ -1,68 +1,23 @@
 #!/bin/bash
 #####################################
-# 1. vi ~/.go                       #
-# 2. command : go hyy               #
+# 1. edit ~/.go                     #
+# 2. command : go $name             #
 #####################################
 s_p=`dirname $0`
-suffix=".go"
-if [ "$1" == "" ]
-then
-    echo "    usage : go hyy"
-    echo "    please input paramter ..."
+source ${s_p}/gocommonsfunc
+if [ "$1" == "" ]; then
+    echo "    usage : go \$name"
+    echo "      please input paramter ..."
     exit -1
-elif [ "$1" == "config" ]
-then
-    function echo_file() {
-        while read line
-        do
-            m_name=`echo ${line} | cut -d ' ' -f 1`
-            if [[ "${line}" == "" || "${m_name:0:1}" == "#" ]]
-            then
-                continue
-            fi
-            arr_len=`echo ${line} | awk '{split($0,a," "); print length(a)}'`
-            if [ $[arr_len%2] == 0 ]
-            then
-                echo "    config [${m_name}] paramter length not valid ..."
-                continue
-            fi
-            echo "    config [${m_name}] : $line"
-        done<$1
-    }
-    echo "    ${s_p}/${suffix}"
-    echo_file ${s_p}/${suffix}
-    echo "    ${HOME}/${suffix}"
-    echo_file ${HOME}/${suffix}
+elif [[ "$1" == "config" || "$1" == "conf" ]]; then
+    #${s_p}/goconf
+    echo -e "$(echo_go)"
+    exit 0
 fi
-arr=""
-# read user config file [.go]
-function read_file() {
-    if [ -f ${2} ]
-    then
-        while read line
-        do
-            m_name=`echo ${line} | cut -d ' ' -f 1`
-            if [[ "${line}" == "" || "${m_name}" != "${1}" || "${m_name:0:1}" == "#" ]]
-            then
-                continue
-            fi
-            arr_len=`echo ${line} | awk '{split($0,a," "); print length(a)}'`
-            if [ $[arr_len%2] == 0 ]
-            then
-                echo "    config [${m_name}] paramter length not valid ..."
-                continue
-            fi
-            arr=`echo ${line} | cut -d ' ' -f 2-${arr_len}`
-        done<${2}
-    fi
-}
-read_file ${1} ${s_p}/${suffix}
-read_file ${1} ${HOME}/${suffix}
-if [ "${arr}" == "" ]
-then
-    echo "    not found [$1] , please check your user config ..."
-    exit -1
+arr=$(get_go $1)
+if [ $? != 0 ]; then
+    echo "    $arr"
+    exit 0
 fi
-# execute expect command
 expect ${s_p}/goex $arr
 exit 0
