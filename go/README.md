@@ -8,7 +8,7 @@ exsample ...
 2.How to edit ~/.go file?
 > paramter :
 
->   alias name
+  > alias name
 
 >   -h hostname \
 >   -u userName \
