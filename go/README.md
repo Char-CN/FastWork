@@ -1,9 +1,7 @@
-exsample ... 
+When you login to the machine, you can use the go command to simplify the operation of the password each time you need to enter the password.
 
 1.How to install go command?
 > sh install.sh -f
-> vi ~/.go
-> go hyy
 
 2.How to edit ~/.go file?
 
@@ -17,4 +15,3 @@ exsample ...
 4.How to use goscp command?
 > goscp hyy ~/test/*:~
 
-Thank you for reading...
