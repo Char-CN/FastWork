@@ -6,6 +6,7 @@ exsample ...
 > go hyy
 
 2.How to edit ~/.go file?
+
 config paramter :
     alias_name -h host_name -u user_name [-P password] [-p port]
 
