@@ -14,7 +14,7 @@ function _install() {
     fi
     if [[ $4 == "-f" || ! -f "$3/$2" ]]
     then
-        echo "install $1/$2 $3"
+        #echo "install $1/$2 $3"
         install -v $1/$2 $3
     else
         echo "exists $3/$2 "
@@ -22,8 +22,12 @@ function _install() {
 }
 
 
+
+_install ${s_p} gocommonsfunc ${ipath} $1
 _install ${s_p} go ${ipath} $1
 _install ${s_p} goex ${ipath} $1
+_install ${s_p} goscp ${ipath} $1
+_install ${s_p} goscpex ${ipath} $1
 _install ${s_p} .go ${ipath} $1
 _install ${s_p} .go ${HOME} $1
 

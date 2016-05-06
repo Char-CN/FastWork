@@ -6,7 +6,7 @@
 s_p=`dirname $0`
 source ${s_p}/gocommonsfunc
 if [[ "$1" == "config" || "$1" == "conf" ]]; then
-    ${s_p}/goconf
+    echo -e "$(echo_go)"
     exit 0
 elif [[ "$1" == "" || "$2" == "" ]]; then
     echo "    usage : goscp \$name \$local:\$targer"
@@ -21,6 +21,7 @@ fi
 arr_len="`echo $2 | awk '{split($0,a,":"); print length(a)}'`"
 local_path=`echo $2 | awk '{split($0,a,":"); print a[1]}'`
 target_path=`echo $2 | awk '{split($0,a,":"); print a[2]}'`
+
 if [ "${arr_len}" != "1" ]; then
     target_path=":$target_path"
 else
@@ -28,5 +29,6 @@ else
     echo "      please input ':' "
     exit -1
 fi
-expect ${s_p}/goscpex $arr -l ${local_path} -t ${target_path}
+# paramter must be contain ""
+expect ${s_p}/goscpex $arr -l "${local_path}" -t "${target_path}"
 exit 0

@@ -9,7 +9,7 @@ set name ""
 set host ""
 set passwd ""
 set port "-p22"
-foreach i { 0 2 4 6 8 10} {
+foreach i { 0 2 4 6 8 10 } {
     #puts $i
     #puts [lindex $argv [expr {$i + 1}]]
     if { [lindex $argv $i] == "-u" } {
@@ -25,13 +25,14 @@ foreach i { 0 2 4 6 8 10} {
         set port "-P[lindex $argv [expr {$i + 1}]]"
     }
     if { [lindex $argv $i] == "-l" } {
+        #set local_path "[lindex $argv [expr {$i + 1}]] | awk '{gsub(",", " ", $0); print $1}' "
         set local_path "[lindex $argv [expr {$i + 1}]]"
     }
     if { [lindex $argv $i] == "-t" && [lindex $argv [expr {$i + 1}]] != "" } {
         set target_path "[lindex $argv [expr {$i + 1}]]"
     }
 }
-spawn scp -r $local_path $name@$host$target_path
+spawn bash -c "scp -r $local_path $name@$host$target_path"
 if { "$passwd" != ""  } {
     expect {
         "yes/no" { send "yes\r"; exp_continue }

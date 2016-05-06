@@ -10,7 +10,6 @@ if [ "$1" == "" ]; then
     echo "      please input paramter ..."
     exit -1
 elif [[ "$1" == "config" || "$1" == "conf" ]]; then
-    #${s_p}/goconf
     echo -e "$(echo_go)"
     exit 0
 fi
