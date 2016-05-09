@@ -2,10 +2,9 @@
 ############################
 # ./install.sh -f          #
 ############################
-
-echo "install begin ......."
 s_p="`dirname $0`/bin"
 ipath="/usr/local/bin"
+
 function _install() {
     if [[ $3 == "${HOME}" && $2 == ".go" ]]
     then
@@ -21,15 +20,17 @@ function _install() {
     fi
 }
 
-
-
+echo "install begin ......"
 _install ${s_p} gocommonsfunc ${ipath} $1
+if [ $? != 0 ]; then
+    echo "install fail ......"
+    exit -1
+fi
 _install ${s_p} go ${ipath} $1
 _install ${s_p} goex ${ipath} $1
 _install ${s_p} goscp ${ipath} $1
 _install ${s_p} goscpex ${ipath} $1
 _install ${s_p} .go ${ipath} $1
 _install ${s_p} .go ${HOME} $1
+echo "install success ......"
 
-
-echo "install done  ......"

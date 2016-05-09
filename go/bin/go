@@ -4,6 +4,7 @@
 # 2. command : go $name             #
 #####################################
 s_p=`dirname $0`
+export suffix=".go"
 source ${s_p}/gocommonsfunc
 if [ "$1" == "" ]; then
     echo "    usage : go \$name"

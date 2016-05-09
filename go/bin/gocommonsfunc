@@ -3,7 +3,8 @@
 # go command commons file           #
 #####################################
 s_p=`dirname $0`
-suffix=".go"
+#suffix=".go"
+
 # read user config file [.go]
 function read_file() {
     if [ -f ${2} ]
@@ -27,6 +28,7 @@ function read_file() {
         echo $arr
     fi
 }
+
 # get .go file arr paramters
 function get_go() {
     arr=$(read_file ${1} ${s_p}/${suffix})
@@ -43,6 +45,7 @@ function get_go() {
     fi
     echo $arr
 }
+
 # echo file
 function echo_file() {
     rst=""
@@ -63,10 +66,9 @@ function echo_file() {
     done<$1
     echo $rst
 }
+
 # echo .go file
 function echo_go() {
     echo "${s_p}/${suffix}\n $(echo_file ${s_p}/${suffix})\n${HOME}/${suffix}\n $(echo_file ${HOME}/${suffix})"
-    #echo -e "$(echo_file ${s_p}/${suffix})"
-    #echo "${HOME}/${suffix}\n"
-    #echo_file ${HOME}/${suffix}
 }
+
