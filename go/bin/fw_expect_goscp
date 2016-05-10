@@ -1,0 +1,42 @@
+#!/usr/bin/expect -f
+#####################################
+# goscp command expect shell        #
+#####################################
+set timeout 10
+set local_path ""
+set target_path ""
+set name ""
+set host ""
+set passwd ""
+set port "-P22"
+foreach i { 0 2 4 6 8 10 } {
+    #puts $i
+    #puts [lindex $argv [expr {$i + 1}]]
+    if { [lindex $argv $i] == "-u" } {
+        set name "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-P" } {
+        set passwd "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-h" } {
+        set host "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-p" } {
+        set port "-P[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-l" } {
+        #set local_path "[lindex $argv [expr {$i + 1}]] | awk '{gsub(",", " ", $0); print $1}' "
+        set local_path "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-t" && [lindex $argv [expr {$i + 1}]] != "" } {
+        set target_path "[lindex $argv [expr {$i + 1}]]"
+    }
+}
+spawn bash -c "scp -r $port $local_path $name@$host$target_path"
+if { "$passwd" != ""  } {
+    expect {
+        "yes/no" { send "yes\r"; exp_continue }
+        "pass" { send "$passwd\r" }
+    }
+}
+interact

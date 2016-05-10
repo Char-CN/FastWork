@@ -1,0 +1,71 @@
+#!/bin/bash
+#####################################
+# go command commons file           #
+#####################################
+s_p=`dirname $0`
+#suffix=".go"
+
+# read user config file [.go]
+function read_file() {
+    if [ -f ${2} ]; then
+        arr=""
+        while read line
+        do
+            m_name=`echo ${line} | cut -d ' ' -f 1`
+            if [[ "${line}" == "" || "${m_name}" != "${1}" || "${m_name:0:1}" == "#" ]]; then
+                continue
+            fi
+            arr_len=`echo ${line} | awk '{split($0,a," "); print length(a)}'`
+            if [ $[arr_len%2] == 0 ]; then
+                echo "error length"
+                continue
+            fi
+            arr=`echo ${line} | cut -d ' ' -f 2-${arr_len}`
+        done<${2}
+        echo $arr
+    fi
+}
+
+# get .go file arr paramters
+function get_go() {
+    arr=$(read_file ${1} ${s_p}/${suffix})
+    if [ "$arr" = "" ]; then
+        arr=$(read_file ${1} ${HOME}/${suffix})
+    fi
+    if [ "${arr}" == "" ]; then
+        echo "[$1] not found, please check your user config ..."
+        exit -1
+    elif [ "${arr}" == "error length" ]; then
+        echo "[$1] error length is not even number, please check your user config ..."
+        exit -1
+    fi
+    echo $arr
+}
+
+# echo file
+function echo_file() {
+    rst=""
+    while read line
+    do
+        m_name=`echo ${line} | cut -d ' ' -f 1`
+        if [[ "${line}" == "" || "${m_name:0:1}" == "#" ]]; then
+            continue
+        fi
+        if [[ "$2" != "" && "$2" != "${m_name}" ]]; then
+            continue
+        fi
+        arr_len=`echo ${line} | awk '{split($0,a," "); print length(a)}'`
+        if [ $[arr_len%2] == 0 ]; then
+            rst="$rst config [${m_name}] error length is not even number, please check your user config ...\n"
+            continue
+        fi
+	rst="$rst config [${m_name}] : ${line}\n"
+    done<$1
+    echo $rst
+}
+
+# echo .go file
+function echo_go() {
+    echo "${s_p}/${suffix}\n $(echo_file ${s_p}/${suffix} $1)\n${HOME}/${suffix}\n $(echo_file ${HOME}/${suffix} $1)"
+}
+
