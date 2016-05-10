@@ -21,15 +21,19 @@ function _install() {
 }
 
 echo "install begin ......"
-_install ${s_p} gocommonsfunc ${ipath} $1
+
+_install ${s_p} fw_commons ${ipath} $1
 if [ $? != 0 ]; then
     echo "install fail ......"
     exit -1
 fi
+
+_install ${s_p} fw_expect_go ${ipath} $1
+_install ${s_p} fw_expect_goscp ${ipath} $1
+
 _install ${s_p} go ${ipath} $1
-_install ${s_p} goex ${ipath} $1
 _install ${s_p} goscp ${ipath} $1
-_install ${s_p} goscpex ${ipath} $1
+
 _install ${s_p} .go ${ipath} $1
 _install ${s_p} .go ${HOME} $1
 echo "install success ......"

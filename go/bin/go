@@ -5,13 +5,13 @@
 #####################################
 s_p=`dirname $0`
 export suffix=".go"
-source ${s_p}/gocommonsfunc
+source ${s_p}/fw_commons
 if [ "$1" == "" ]; then
     echo "    usage : go \$name"
     echo "      please input paramter ..."
     exit -1
 elif [[ "$1" == "config" || "$1" == "conf" ]]; then
-    echo -e "$(echo_go)"
+    echo -e "$(echo_go $2)"
     exit 0
 fi
 arr=$(get_go $1)
@@ -19,5 +19,5 @@ if [ $? != 0 ]; then
     echo "    $arr"
     exit 0
 fi
-expect ${s_p}/goex $arr
+expect ${s_p}/fw_expect_go $arr
 exit 0

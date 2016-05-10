@@ -4,7 +4,8 @@
 # 2. command : goscp $name $local:$targer   #
 #############################################
 s_p=`dirname $0`
-source ${s_p}/gocommonsfunc
+export suffix=".go"
+source ${s_p}/fw_commons
 if [[ "$1" == "config" || "$1" == "conf" ]]; then
     echo -e "$(echo_go)"
     exit 0
@@ -30,5 +31,5 @@ else
     exit -1
 fi
 # paramter must be contain ""
-expect ${s_p}/goscpex $arr -l "${local_path}" -t "${target_path}"
+expect ${s_p}/fw_expect_goscp $arr -l "${local_path}" -t "${target_path}"
 exit 0
