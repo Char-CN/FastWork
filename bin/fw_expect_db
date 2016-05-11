@@ -1,0 +1,29 @@
+#!/usr/bin/expect -f
+set timeout 10
+set host ""
+set name ""
+set passwd ""
+set port "-P3306"
+set db ""
+foreach i { 0 2 4 6 8 } {
+    if { [lindex $argv $i] == "-u" } {
+        set name "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-p" } {
+        set passwd "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-h" } {
+        set host "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-P" } {
+        set port "-P[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-D" } {
+        set db "-D[lindex $argv [expr {$i + 1}]]"
+    }
+}
+spawn mysql -h$host -u$name $port $db -p
+expect {
+    "pass" { send "$passwd\r" }
+}
+interact

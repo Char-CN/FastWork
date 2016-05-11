@@ -1,0 +1,6 @@
+################################################################################################
+# config paramter : alias_name -h host_name -u user_name -P password [-p port] [-D database]   #
+# config exsample : my -h 192.168.0.110 -u root -p root -P 3306 -D test                        #
+################################################################################################
+my -h 127.0.0.1 -u root -p root -P 3306 -D test
+

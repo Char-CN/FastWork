@@ -27,10 +27,10 @@ function read_file() {
 }
 
 # get .go file arr paramters
-function get_go() {
-    arr=$(read_file ${1} ${s_p}/${suffix})
+function get_conf() {
+    arr=$(read_file ${1} ${HOME}/${suffix})
     if [ "$arr" = "" ]; then
-        arr=$(read_file ${1} ${HOME}/${suffix})
+        arr=$(read_file ${1} ${s_p}/${suffix})
     fi
     if [ "${arr}" == "" ]; then
         echo "[$1] not found, please check your user config ..."
@@ -65,7 +65,7 @@ function echo_file() {
 }
 
 # echo .go file
-function echo_go() {
+function echo_conf() {
     echo "${s_p}/${suffix}\n $(echo_file ${s_p}/${suffix} $1)\n${HOME}/${suffix}\n $(echo_file ${HOME}/${suffix} $1)"
 }
 

@@ -1,13 +1,13 @@
 #!/bin/bash
 #####################################
-# 1. edit ~/.go                     #
-# 2. command : go $name             #
+# 1. edit ~/.db                     #
+# 2. command : db $name             #
 #####################################
 s_p=`dirname $0`
-export suffix=".go"
+export suffix=".db"
 source ${s_p}/fw_commons
 if [ "$1" == "" ]; then
-    echo "    usage : go \$name"
+    echo "    usage : db \$name"
     echo "      please input paramter ..."
     exit -1
 elif [[ "$1" == "config" || "$1" == "conf" ]]; then
@@ -19,5 +19,5 @@ if [ $? != 0 ]; then
     echo "    $arr"
     exit 0
 fi
-expect ${s_p}/fw_expect_go $arr
+expect ${s_p}/fw_expect_db $arr
 exit 0

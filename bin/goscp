@@ -7,14 +7,14 @@ s_p=`dirname $0`
 export suffix=".go"
 source ${s_p}/fw_commons
 if [[ "$1" == "config" || "$1" == "conf" ]]; then
-    echo -e "$(echo_go)"
+    echo -e "$(echo_conf)"
     exit 0
 elif [[ "$1" == "" || "$2" == "" ]]; then
     echo "    usage : goscp \$name \$local:\$targer"
     echo "      please input paramter ..."
     exit -1
 fi
-arr=$(get_go $1)
+arr=$(get_conf $1)
 if [ $? != 0 ]; then
     echo "    $arr"
     exit 0

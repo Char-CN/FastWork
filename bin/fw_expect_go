@@ -4,12 +4,10 @@
 #####################################
 set timeout 10
 set name ""
-set ip ""
+set host ""
 set passwd ""
 set port "-p22"
 foreach i { 0 2 4 6 } {
-    #puts $i
-    #puts [lindex $argv [expr {$i + 1}]]
     if { [lindex $argv $i] == "-u" } {
         set name "-l[lindex $argv [expr {$i + 1}]]"
     }
@@ -17,13 +15,13 @@ foreach i { 0 2 4 6 } {
         set passwd "[lindex $argv [expr {$i + 1}]]"
     }
     if { [lindex $argv $i] == "-h" } {
-        set ip "[lindex $argv [expr {$i + 1}]]"
+        set host "[lindex $argv [expr {$i + 1}]]"
     }
     if { [lindex $argv $i] == "-p" } {
         set port "-p[lindex $argv [expr {$i + 1}]]"
     }
 }
-spawn ssh $port $name $ip
+spawn ssh $port $name $host
 if { "$passwd" != ""  } {
     expect {
         "yes/no" { send "yes\r"; exp_continue }
