@@ -23,6 +23,6 @@ You must install expect5.45
 
     config exsample : my -h 192.168.0.110 -u root -p root -P 3306 -D test
 
-3.How to use db command?
+6.How to use db command?
 > db my
 
