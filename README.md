@@ -2,7 +2,7 @@ When you login to the machine, you can use the go command to simplify the operat
 
 You must install expect5.45
 
-1.How to install go command?
+1.How to install [go goscp db] command?
 > sh install.sh -f
 
 2.How to edit ~/.go file?
@@ -16,4 +16,13 @@ You must install expect5.45
 
 4.How to use goscp command?
 > goscp hyy ~/test/*:~
+
+5.How to edit ~/.db file?
+
+    config paramter : alias_name -h host_name -u user_name -P password [-p port] [-D database]
+
+    config exsample : my -h 192.168.0.110 -u root -p root -P 3306 -D test
+
+3.How to use db command?
+> db my
 
