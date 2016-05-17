@@ -1,7 +1,7 @@
 #!/usr/bin/expect -f
 #####################################
 # go command expect shell           #
-#####################################
+####################################
 set timeout 10
 set name ""
 set host ""
@@ -22,10 +22,10 @@ foreach i { 0 2 4 6 } {
     }
 }
 spawn ssh $port $name $host
-if { "$passwd" != ""  } {
-    expect {
-        "yes/no" { send "yes\r"; exp_continue }
-        "pass" { send "$passwd\r" }
-    }
+expect {
+    "yes/no"             {send "yes\r"; exp_continue}
+    "password"           {send "$passwd\r"}
+    "Connection refused" {;}
+    eof                  {;}
 }
 interact

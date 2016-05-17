@@ -33,10 +33,10 @@ foreach i { 0 2 4 6 8 10 } {
     }
 }
 spawn bash -c "scp -r $port $local_path $name@$host$target_path"
-if { "$passwd" != ""  } {
-    expect {
-        "yes/no" { send "yes\r"; exp_continue }
-        "pass" { send "$passwd\r" }
-    }
+expect {
+    "yes/no"             {send "yes\r"; exp_continue}
+    "password"           {send "$passwd\r"}
+    "Connection refused" {;}
+    eof                  {;}
 }
 interact

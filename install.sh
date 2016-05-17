@@ -13,9 +13,9 @@ function _install() {
     if [[ $4 == "-f" || ! -f "$3/$2" ]]; then
         install $1/$2 $3
         if [ $? != 0 ]; then
-            echo "install $1/$2 $3 [fail]"
+            echo "[fail   ] install $1/$2 $3"
         else
-            echo "install $1/$2 $3 [success]"
+            echo "[success] install $1/$2 $3"
         fi
     else
         echo "exists $3/$2 "
