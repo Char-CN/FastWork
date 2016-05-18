@@ -24,7 +24,9 @@ foreach i { 0 2 4 6 } {
 spawn ssh $port $name $host
 expect {
     "yes/no"             {send "yes\r"; exp_continue}
-    "password"           {send "$passwd\r"}
+    "pass"               {send "$passwd\r"}
+    "Pass"               {send "$passwd\r"}
+    "ass"                {send "$passwd\r"}
     "Connection refused" {;}
     eof                  {;}
 }
