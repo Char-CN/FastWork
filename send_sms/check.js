@@ -3,10 +3,13 @@
  */
 var check_length = 70;
 var args = require('system').args;
-var path = args[1];
 var fs = require('fs');
+fs.changeWorkingDirectory("xplan");
+console.log('workDirectory : ' + fs.workingDirectory);
+var path = args[1];
 var content = fs.read(path);
 var head = '【恒大金服】';
+
 
 //console.log('content.length: ' + content.length);
 //console.log('content.indexOf(\'\\n\') : ' + content.lastIndexOf('\n'));
