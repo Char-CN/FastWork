@@ -3,6 +3,8 @@ preface : When you login to the machine, you can use the go command to simplify 
 
 condition : You must install expect5.45
 
+remark : If you install command, you can use command [go hyy] login you machine, the 'hyy' is alias name, you must config ~/.go file, must mapping hyy to host、username、password、port.
+
 1.How to install [go goscp db] command?
 > sh install.sh -f
 
@@ -32,6 +34,8 @@ condition : You must install expect5.45
 前言：当你需要登录服务器、数据库等等的时候，常常需要输入密码，当然也可以屏蔽这一步，开始吧！
 
 条件：你必须安装expect5.x（4.x版本未测试）
+
+说明：当你安装好命令后，可以使用类似【go hyy】命令进入服务器，你必须配置~/.go文件，添加hyy映射，添加主机、用户名、密码、端口等信息。
 
 1.如何安装【go、goscp、db】命令？
 > sh install.sh -f
