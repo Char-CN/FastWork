@@ -14,7 +14,16 @@ fi
 
 function _install() {
     if [[ $2 == ".db" || $2 == ".go" ]]; then
-        echo "install ${HOME}/$2 exists"
+        if [ ! -f "$3/$2" ];then
+            install $1/$2 $3
+            if [ $? != 0 ]; then
+                echo "[fail   ] install $1/$2 $3"
+            else
+                echo "[success] install $1/$2 $3"
+            fi
+        else
+            echo "install ${HOME}/$2 exists"
+        fi
         return
     fi
     if [[ $4 == "-f" || ! -f "$3/$2" ]]; then
