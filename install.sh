@@ -5,6 +5,13 @@
 s_p="`dirname $0`/bin"
 ipath="/usr/local/bin"
 
+if [ -d $1 ];then
+    ipath="$1"
+fi
+if [ -d $2 ];then
+    ipath="$2"
+fi
+
 function _install() {
     if [[ $2 == ".db" || $2 == ".go" ]]; then
         echo "install ${HOME}/$2 exists"
