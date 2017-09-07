@@ -43,7 +43,7 @@ https://github.com/Char-CN/FastWork/releases
     配置示例 : my -h 192.168.0.110 -u root -p root -P 3306 -D test
 
 6.如何使用db命令？
-> db my
+> db my 
     
     进入短链名为my的目标数据库
     
