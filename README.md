@@ -31,6 +31,7 @@ https://github.com/Char-CN/FastWork/releases
 
 4.如何使用goscp命令？
 > goscp hyy \~/test/*:\~
+> 将本机 \~/test\* 文件全部拷贝到目标机器(hyy)的 \~ 目录下
 
 5.如何编辑配置文件（~/.db）？
 
