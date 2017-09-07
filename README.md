@@ -30,7 +30,7 @@ https://github.com/Char-CN/FastWork/releases
 > go hyy
 
 4.如何使用goscp命令？
-> goscp hyy ~/test/*:~
+> goscp hyy \~/test/*:\~
 
 5.如何编辑配置文件（~/.db）？
 
