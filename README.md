@@ -3,13 +3,13 @@
 [![Documentation](https://travis-ci.org/alibaba/dubbo.svg?branch=master)](https://github.com/Char-CN/FastWork/wiki)
 [![Download](https://img.shields.io/badge/release-download-orange.svg)](https://github.com/Char-CN/FastWork/releases)
 
-## 文档|Documentation
+## 文档 | Documentation
 https://github.com/Char-CN/FastWork/wiki
 
-## 下载|Download
+## 下载 | Download
 https://github.com/Char-CN/FastWork/releases
 
-## 说明|Description
+## 说明 | Description
 
 前言：当你需要登录服务器、数据库等等的时候，常常需要输入密码，当然也可以屏蔽这一步，开始吧！
 
