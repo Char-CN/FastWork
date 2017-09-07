@@ -29,6 +29,8 @@ https://github.com/Char-CN/FastWork/releases
 3.如何使用go命令？
 > go hyy
 
+    登录短链名为hyy的目标机器
+
 4.如何使用goscp命令？
 > goscp hyy \~/test/*:\~
 
@@ -42,3 +44,6 @@ https://github.com/Char-CN/FastWork/releases
 
 6.如何使用db命令？
 > db my
+
+    进入短链名为my的目标数据库
+
