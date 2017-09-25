@@ -8,6 +8,7 @@ https://github.com/Char-CN/FastWork/releases
 
 ## 文档 | Documentation
 中文: https://github.com/Char-CN/FastWork/wiki/首页
+
 English: https://github.com/Char-CN/FastWork/wiki
 
 前言：当你需要登录服务器、数据库等等的时候，常常需要输入密码，当然也可以屏蔽这一步，开始吧！
