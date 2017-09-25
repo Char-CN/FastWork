@@ -6,7 +6,8 @@
 ## 下载 | Download
 https://github.com/Char-CN/FastWork/releases
 
-## 说明 | Description
+## 文档 | Documentation(https://github.com/Char-CN/FastWork/wiki)
+
 
 前言：当你需要登录服务器、数据库等等的时候，常常需要输入密码，当然也可以屏蔽这一步，开始吧！
 
@@ -40,6 +41,3 @@ https://github.com/Char-CN/FastWork/releases
 6.如何使用db命令？
 > db my
 
-
-## 文档 | Documentation
-https://github.com/Char-CN/FastWork/wiki
