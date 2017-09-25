@@ -3,9 +3,6 @@
 [![Documentation](https://travis-ci.org/alibaba/dubbo.svg?branch=master)](https://github.com/Char-CN/FastWork/wiki)
 [![Download](https://img.shields.io/badge/release-download-orange.svg)](https://github.com/Char-CN/FastWork/releases)
 
-## 文档 | Documentation
-https://github.com/Char-CN/FastWork/wiki
-
 ## 下载 | Download
 https://github.com/Char-CN/FastWork/releases
 
@@ -42,3 +39,7 @@ https://github.com/Char-CN/FastWork/releases
 
 6.如何使用db命令？
 > db my
+
+
+## 文档 | Documentation
+https://github.com/Char-CN/FastWork/wiki
