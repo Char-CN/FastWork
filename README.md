@@ -20,6 +20,9 @@ English: https://github.com/Char-CN/FastWork/wiki
 1.如何安装【go、goscp、db】命令？
 > sh install.sh -f
 
+Mac Os install:
+> sudo sh install.sh -f /bin
+
 2.如何编辑配置文件（~/.go）？
 
     参数说明 : 短链名称 -h 主机名 -u 用户名 [-P 密码] [-p 端口]
