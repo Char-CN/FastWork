@@ -20,4 +20,7 @@ if [ $? != 0 ]; then
     exit 0
 fi
 expect ${s_p}/fw_expect_go $arr
+if [ $? != 0 ]; then
+    echo "error: Connection fail, please check [vpn or ss or network proxy ...] is open?"
+fi
 exit 0
