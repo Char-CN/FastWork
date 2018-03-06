@@ -32,4 +32,7 @@ else
 fi
 # paramter must be contain ""
 expect ${s_p}/fw_expect_goscp $arr -l "${local_path}" -t "${target_path}"
+if [ $? != 0 ]; then
+    echo "error: Connection fail, please check [vpn or ss or network proxy ...] is open?"
+fi
 exit 0
