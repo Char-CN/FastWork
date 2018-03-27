@@ -15,7 +15,7 @@ fi
 function _install() {
     if [[ $2 == ".db" || $2 == ".go" ]]; then
         if [ ! -f "$3/$2" ];then
-            \cp $1/$2 $3
+            install $1/$2 $3
             if [ $? != 0 ]; then
                 echo "[fail   ] install $1/$2 $3"
             else
@@ -27,7 +27,7 @@ function _install() {
         return
     fi
     if [[ $4 == "-f" || ! -f "$3/$2" ]]; then
-        \cp $1/$2 $3
+        install $1/$2 $3
         if [ $? != 0 ]; then
             echo "[fail   ] install $1/$2 $3"
         else
