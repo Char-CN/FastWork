@@ -1,70 +1,58 @@
 #!/bin/bash
-############################
-# ./install.sh -f          #
-############################
+##################################
+# ./install.sh /usr/local/bin    #
+##################################
 s_p="`dirname $0`/bin"
 ipath="/usr/local/bin"
+error=0
 
-if [ -d $1 ];then
-    ipath="$1"
-fi
-if [ -d $2 ];then
-    ipath="$2"
+if [ "$1" != "" ];then
+  ipath="$1"
 fi
 
-function _install() {
-    if [[ $2 == ".db" || $2 == ".go" ]]; then
-        if [ ! -f "$3/$2" ];then
-            install $1/$2 $3
-            if [ $? != 0 ]; then
-                echo "[fail   ] install $1/$2 $3"
-            else
-                echo "[success] install $1/$2 $3"
-            fi
-        else
-            echo "install ${HOME}/$2 exists"
-        fi
-        return
-    fi
-    if [[ $4 == "-f" || ! -f "$3/$2" ]]; then
-        install $1/$2 $3
-        if [ $? != 0 ]; then
-            echo "[fail   ] install $1/$2 $3"
-        else
-            echo "[success] install $1/$2 $3"
-        fi
-    else
-        echo "exists $3/$2 "
-    fi
-}
+echo "========================================================"
+echo "install start."
 
-echo "======================================install begin ......"
+echo "cp $s_p/fw_commons $ipath"
+cp $s_p/fw_commons $ipath
+((error=$error+$?))
 
-echo " "
-_install ${s_p} fw_commons ${ipath} $1
-if [ $? != 0 ]; then
-    echo "install fail ......"
-    exit -1
+echo "cp $s_p/fw_expect_db $ipath"
+cp $s_p/fw_expect_db $ipath
+((error=$error+$?))
+
+echo "cp $s_p/fw_expect_go $ipath"
+cp $s_p/fw_expect_go $ipath
+((error=$error+$?))
+
+echo "cp $s_p/fw_expect_goscp $ipath"
+cp $s_p/fw_expect_goscp $ipath
+((error=$error+$?))
+
+echo "cp $s_p/go $ipath"
+cp $s_p/go $ipath
+((error=$error+$?))
+
+echo "cp $s_p/db $ipath"
+cp $s_p/db $ipath
+((error=$error+$?))
+
+if [ ! -f "$HOME/.go" ];then
+  echo "cp $s_p/.go $ipath"
+  cp $s_p/.go $ipath
+  ((error=$error+$?))
 fi
 
-echo " "
-_install ${s_p} fw_expect_go ${ipath} $1
-_install ${s_p} fw_expect_goscp ${ipath} $1
-_install ${s_p} fw_expect_db ${ipath} $1
+if [ ! -f "$HOME/.db" ];then
+  echo "cp $s_p/.db $ipath"
+  cp $s_p/.db $ipath
+  ((error=$error+$?))
+fi
 
-echo " "
-_install ${s_p} go ${ipath} $1
-_install ${s_p} goscp ${ipath} $1
-_install ${s_p} db ${ipath} $1
+if [ $error != 0 ]; then
+  echo "install fail, plase use [sudo sh install.sh]."
+else
+  echo "install success."
+fi
 
-echo " "
-_install ${s_p} .go ${ipath} $1
-_install ${s_p} .go ${HOME} $1
-
-echo " "
-_install ${s_p} .db ${ipath} $1
-_install ${s_p} .db ${HOME} $1
-
-echo " "
-echo "======================================install success ......"
-
+echo "========================================================"
