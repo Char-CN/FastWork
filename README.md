@@ -18,10 +18,10 @@ English: https://github.com/Char-CN/FastWork/wiki
 说明：当你安装好命令后，可以使用类似【go hyy】命令进入服务器，你必须配置~/.go文件，添加hyy映射，添加主机、用户名、密码、端口等信息。
 
 1.如何安装【go、goscp、db】命令？
-> sh install.sh -f
 
-Mac Os install:
-> sudo sh install.sh -f /bin
+说明: 默认安装到 /usr/local/bin 你可以更改安装目录 或者将bin目录添加到环境变量
+
+> sudo sh install.sh /usr/local/bin
 
 2.如何编辑配置文件（~/.go）？
 
