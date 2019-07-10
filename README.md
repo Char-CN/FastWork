@@ -11,38 +11,64 @@ English: https://github.com/Char-CN/FastWork/wiki
 
 中文: https://github.com/Char-CN/FastWork/wiki/首页
 
-前言：当你需要登录服务器、数据库等等的时候，常常需要输入密码，当然也可以屏蔽这一步，开始吧！
+### 前言: 通常在使用命令行登录服务器、数据库时需要输入密码，如何快速登录？
+     
+* 1.安装Fastwork
+* 2.配置 ~/.go 或 ~/.db
+* 3.使用 go hyy
 
-条件：你必须安装expect5.x（4.x版本也是兼容的）和 SSH
+### 依赖
+* expect5.x or expect4.x
+* SSH
 
-说明：当你安装好命令后，可以使用类似【go hyy】命令进入服务器，你必须配置~/.go文件，添加hyy映射，添加主机、用户名、密码、端口等信息。
+### 操作手册
 
-1.如何安装【go、goscp、db】命令？
+---
 
-说明: 默认安装到 /usr/local/bin 你可以更改安装目录 或者将bin目录添加到环境变量
+#### 1. 安装【go、goscp、db】命令
 
-> sudo sh install.sh /usr/local/bin
+>默认安装到 /usr/local/bin 你可以更改安装目录 或者将bin目录添加到环境变量
 
-2.如何编辑配置文件（~/.go）？
+`sudo sh install.sh /usr/local/bin`
 
-    参数说明 : 短链名称 -h 主机名 -u 用户名 [-P 密码] [-p 端口]
-    
-    配置示例 : hyy -h 192.168.0.110 -u root -P root -p 222
+---
 
-3.如何使用go命令？
-> go hyy
+#### 2. 编辑配置文件（~/.go）
 
-4.如何使用goscp命令？
-> goscp hyy \~/test/*:\~
+>参数说明 : 短链名称 -h 主机名 -u 用户名 [-P 密码] [-p 端口]
+>
+>配置示例 : hyy -h 192.168.0.110 -u root -P root -p 222
 
-    将本机 ~/test/* 文件全部拷贝到目标机器(hyy)的 ~/ 目录下
+`vi ~/.go`
 
-5.如何编辑配置文件（~/.db）？
+---
 
-    参数说明 : 短链名称 -h 主机名 -u 用户名 -P 密码 [-p 端口] [-D 数据库]
-    
-    配置示例 : my -h 192.168.0.110 -u root -p root -P 3306 -D test
+#### 3. 使用go命令
 
-6.如何使用db命令？
-> db my
+`go hyy`
 
+---
+
+#### 4. 使用goscp命令
+
+>将本机 ~/test/* 文件全部拷贝到目标机器(hyy)的 ~/ 目录下
+
+`goscp hyy ~/test/*:~`
+
+---
+
+#### 5. 编辑配置文件（~/.db）
+
+>参数说明 : 短链名称 -h 主机名 -u 用户名 -P 密码 [-p 端口] [-D 数据库]
+>
+>配置示例 : my -h 192.168.0.110 -u root -p root -P 3306 -D test
+
+`vi ~/.db`
+
+---
+
+#### 6. 使用db命令
+
+`db my`
+
+---
