@@ -1,8 +1,7 @@
 # FastWork
-
-[![Documentation](https://travis-ci.org/alibaba/dubbo.svg?branch=master)](https://github.com/Char-CN/FastWork/wiki)
+[![Build Status](https://travis-ci.org/Char-CN/FastWork.svg?branch=master)](https://travis-ci.org/Char-CN/FastWork/wiki)
 [![Download](https://img.shields.io/badge/release-download-orange.svg)](https://github.com/Char-CN/FastWork/releases)
-
+	
 ## 下载 | Download
 https://github.com/Char-CN/FastWork/releases
 
@@ -14,24 +13,20 @@ English: https://github.com/Char-CN/FastWork/wiki
 ### 前言: 通常在使用命令行登录服务器、数据库时需要输入密码，如何快速登录？
      
 * 1.安装Fastwork
-* 2.配置 ~/.go 或 ~/.db
+* 2.配置 ~/.go 和 ~/.db
 * 3.使用 go hyy
 
 ### 依赖
-* expect5.x or expect4.x
+* expect5.x 或 expect4.x
 * SSH
 
 ### 操作手册
-
----
 
 #### 1. 安装【go、goscp、db】命令
 
 >默认安装到 /usr/local/bin 你可以更改安装目录 或者将bin目录添加到环境变量
 
 `sudo sh install.sh /usr/local/bin`
-
----
 
 #### 2. 编辑配置文件（~/.go）
 
@@ -41,13 +36,11 @@ English: https://github.com/Char-CN/FastWork/wiki
 
 `vi ~/.go`
 
----
 
 #### 3. 使用go命令
 
 `go hyy`
 
----
 
 #### 4. 使用goscp命令
 
@@ -55,7 +48,6 @@ English: https://github.com/Char-CN/FastWork/wiki
 
 `goscp hyy ~/test/*:~`
 
----
 
 #### 5. 编辑配置文件（~/.db）
 
@@ -65,10 +57,7 @@ English: https://github.com/Char-CN/FastWork/wiki
 
 `vi ~/.db`
 
----
 
 #### 6. 使用db命令
 
 `db my`
-
----
