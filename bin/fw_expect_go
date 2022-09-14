@@ -7,9 +7,10 @@ set name ""
 set host ""
 set passwd ""
 set port "-p22"
+set key_path ""
 foreach i { 0 2 4 6 } {
     if { [lindex $argv $i] == "-u" } {
-        set name "-l[lindex $argv [expr {$i + 1}]]"
+        set name "[lindex $argv [expr {$i + 1}]]"
     }
     if { [lindex $argv $i] == "-P" } {
         set passwd "[lindex $argv [expr {$i + 1}]]"
@@ -18,16 +19,23 @@ foreach i { 0 2 4 6 } {
         set host "[lindex $argv [expr {$i + 1}]]"
     }
     if { [lindex $argv $i] == "-p" } {
-        set port "-p[lindex $argv [expr {$i + 1}]]"
+        set port "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-i" } {
+        set key_path "[lindex $argv [expr {$i + 1}]]"
     }
 }
-spawn ssh $port $name $host
-expect {
-    "yes/no"             {send "yes\r"; exp_continue}
-    "pass"               {send "$passwd\r"}
-    "Pass"               {send "$passwd\r"}
-    "ass"                {send "$passwd\r"}
-    "Connection refused" {;}
-    eof                  {;}
+if { "$key_path" != "" } {
+    spawn ssh -i $key_path $name@$host
+} else {
+    spawn ssh -p$port -l$name $host
+    expect {
+        "yes/no"             {send "yes\r"; exp_continue}
+        "pass"               {send "$passwd\r"}
+        "Pass"               {send "$passwd\r"}
+        "ass"                {send "$passwd\r"}
+        "Connection refused" {;}
+        eof                  {;}
+    }
 }
 interact
