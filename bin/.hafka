@@ -1,0 +1,10 @@
+###################################################
+# -b -broker   : kafka broker list
+# -t -topic    : kafka topic
+# -f -file     : kafka message json file, one data per line
+# -ss -sleep_s : send message sleep seconds
+# -q -quit     : after quit program
+###################################################
+# example      :  myname -b ip:port -t topicName -f fileName -ss 0.5 -q
+###################################################
+

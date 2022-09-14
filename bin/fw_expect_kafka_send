@@ -1,0 +1,53 @@
+#!/usr/bin/expect -f
+set timeout 10
+set broker ""
+set topic ""
+set file ""
+set sleep_s ""
+set quit ""
+foreach i { 0 2 4 6 8 10 12 14 16 18 20 } {
+    if { [lindex $argv $i] == "-broker" } {
+        set broker "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-b" } {
+        set broker "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-topic" } {
+        set topic "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-t" } {
+        set topic "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-file" } {
+        set file "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-f" } {
+        set file "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-sleep_s" } {
+        set sleep_s "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-ss" } {
+        set sleep_s "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-quit" } {
+        set quit "\04"
+    }
+    if { [lindex $argv $i] == "-q" } {
+        set quit "\04"
+    }
+}
+spawn kafka-console-producer.sh --broker-list $broker --topic $topic
+
+set fid [open $file r]
+while {[gets $fid line] >= 0} {
+    expect ">" { send "$line \r" }
+    sleep $sleep_s
+}
+close $fid
+
+if { "$quit" != "" } {
+  send "$quit"
+}
+
+interact

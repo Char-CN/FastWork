@@ -29,6 +29,14 @@ echo "cp $s_p/fw_expect_goscp $ipath"
 cp $s_p/fw_expect_goscp $ipath
 ((error=$error+$?))
 
+echo "cp $s_p/fw_expect_kafka_send $ipath"
+cp $s_p/fw_expect_kafka_send $ipath
+((error=$error+$?))
+
+echo "cp $s_p/hafka $ipath"
+cp $s_p/hafka $ipath
+((error=$error+$?))
+
 echo "cp $s_p/go $ipath"
 cp $s_p/go $ipath
 ((error=$error+$?))
@@ -41,12 +49,24 @@ if [ ! -f "$HOME/.go" ];then
   echo "cp $s_p/.go $ipath"
   cp $s_p/.go $ipath
   ((error=$error+$?))
+else
+  echo "ignore $HOME/.go exists."
 fi
 
 if [ ! -f "$HOME/.db" ];then
   echo "cp $s_p/.db $ipath"
   cp $s_p/.db $ipath
   ((error=$error+$?))
+else
+  echo "ignore $HOME/.db exists."
+fi
+
+if [ ! -f "$HOME/.hafka" ];then
+  echo "cp $s_p/.hafka $ipath"
+  cp $s_p/.db $ipath
+  ((error=$error+$?))
+else
+  echo "ignore $HOME/.hafka exists."
 fi
 
 if [ $error != 0 ]; then

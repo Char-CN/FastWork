@@ -1,0 +1,26 @@
+#!/bin/bash
+#####################################
+# 1. edit ~/.hafka                  #
+# 2. command : hafka $name          #
+#####################################
+s_p=`dirname $0`
+export suffix=".hafka"
+source ${s_p}/fw_commons
+if [ "$1" == "" ]; then
+    echo "    usage : hafka \$name"
+    echo "      please input paramter ..."
+    exit -1
+elif [[ "$1" == "config" || "$1" == "conf" ]]; then
+    echo -e "$(echo_conf $2)"
+    exit 0
+fi
+arr=$(get_conf $1)
+if [ $? != 0 ]; then
+    echo "    $arr"
+    exit 0
+fi
+expect ${s_p}/fw_expect_kafka_send $arr
+if [ $? != 0 ]; then
+    echo "error: Connection fail, please check [vpn or ss or network proxy ...] is open?"
+fi
+exit 0
