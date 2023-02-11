@@ -21,6 +21,10 @@ echo "cp $s_p/fw_expect_db $ipath"
 cp $s_p/fw_expect_db $ipath
 ((error=$error+$?))
 
+echo "cp $s_p/fw_expect_db_redis $ipath"
+cp $s_p/fw_expect_db_redis $ipath
+((error=$error+$?))
+
 echo "cp $s_p/fw_expect_go $ipath"
 cp $s_p/fw_expect_go $ipath
 ((error=$error+$?))
@@ -45,6 +49,10 @@ echo "cp $s_p/db $ipath"
 cp $s_p/db $ipath
 ((error=$error+$?))
 
+echo "cp $s_p/fw $ipath"
+cp $s_p/fw $ipath
+((error=$error+$?))
+
 if [ ! -f "$HOME/.go" ];then
   echo "cp $s_p/.go $ipath"
   cp $s_p/.go $ipath
@@ -63,10 +71,18 @@ fi
 
 if [ ! -f "$HOME/.hafka" ];then
   echo "cp $s_p/.hafka $ipath"
-  cp $s_p/.db $ipath
+  cp $s_p/.hafka $ipath
   ((error=$error+$?))
 else
   echo "ignore $HOME/.hafka exists."
+fi
+
+if [ ! -f "$HOME/.fw" ];then
+  echo "cp $s_p/.fw $ipath"
+  cp $s_p/.fw $ipath
+  ((error=$error+$?))
+else
+  echo "ignore $HOME/.fw exists."
 fi
 
 if [ $error != 0 ]; then
