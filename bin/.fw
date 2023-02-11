@@ -1,0 +1,23 @@
+######### you can modify the absolute path
+[path]
+# open mysql root path config. default ssh
+# ssh /usr/bin/ssh
+# open mysql root path config. default mysql
+# mysql /usr/bin/mysql
+# open redis root path config. default redis-cli
+# redis /usr/bin/redis-cli
+
+######### ssh config discription
+# paramter : alias -h host -u user_name [-P password] [-p port]
+# exsample : s1 -h 127.0.0.1 -u root -P root -p 22
+[ssh]
+
+######### mysql config discription
+# paramter : alias -h host -u user_name -P password [-p port] [-D database]
+# exsample : my -h 127.0.0.1 -u root -p root -P 3306 -D test
+[mysql]
+
+######### redis config discription
+# paramter : alias -h host [-p port] [-a password] [-s select]
+# exsample : re -h 127.0.0.1 -p 6379 -a root -s 0
+[redis]

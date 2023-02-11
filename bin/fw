@@ -1,0 +1,70 @@
+#!/bin/bash
+#####################################
+# 1. edit ~/.fw                     #
+# 2. command : fw $name             #
+#####################################
+s_p=`dirname $0`
+export suffix=".fw"
+source ${s_p}/fw_commons
+
+### config file
+# [path]
+# ssh /usr/local/bin
+### config file end
+# usage: $(read_file_by_group $file_path "path" "ssh" "default_value")
+function read_file_by_group() {
+    file_path="${1}"
+    # group add []
+    key_group="[${2}]"
+    # key add space
+    key_name="${3}"
+    default_value="${4}"
+    in_group="0"
+    if [ -f ${1} ]; then
+        rst=""
+        while read line
+        do
+            if [[ "$line" =~ ^\s*"$key_group"\s* ]]; then
+                in_group="1"
+                continue
+            elif [[ "$in_group" == "1" && "$line" =~ ^\s*\[.*\]\s* ]]; then
+                in_group="2"
+                break
+            fi
+            if [[ "$in_group" == "1" && "$line" =~ ^( )*"$key_name"( )+.* ]]; then
+                rst=${line#*$key_name}
+                break
+            fi
+        done < ${1}
+        if [[ "$rst" == "" ]]; then
+            echo $default_value
+        else
+            echo $rst
+        fi
+    else
+        echo $default_value
+    fi
+}
+
+ssh=$(read_file_by_group ${s_p}/${suffix} "ssh" "$1")
+mysql=$(read_file_by_group ${s_p}/${suffix} "mysql" "$1")
+redis=$(read_file_by_group ${s_p}/${suffix} "redis" "$1")
+
+if [[ "$ssh" != "" ]];
+then
+    command_path=$(read_file_by_group ${s_p}/${suffix} "path" "ssh" "ssh")
+    expect ${s_p}/fw_expect_go $ssh - $command_path
+    if [ $? != 0 ]; then
+        echo "ERROR !!! Connection fail, please check [vpn or ss or network proxy ...] is open?"
+    fi
+elif [[ "$mysql" != "" ]]; then
+    command_path=$(read_file_by_group ${s_p}/${suffix} "path" "mysql" "mysql")
+    expect ${s_p}/fw_expect_db $mysql - $command_path
+elif [[ "$redis" != "" ]]; then
+    command_path=$(read_file_by_group ${s_p}/${suffix} "path" "redis" "redis-cli")
+    expect ${s_p}/fw_expect_db_redis $redis - $command_path
+else
+    echo "ERROR !!! $1 is not found in group [ssh] [mysql] [redis]."
+fi
+
+exit 0

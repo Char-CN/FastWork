@@ -1,0 +1,46 @@
+#!/usr/bin/expect -f
+
+# -
+set command "redis-cli"
+# -h
+set host "127.0.0.1"
+# -p
+set port "6379"
+# -a
+set passwd ""
+# -s
+set select ""
+
+foreach i { 0 2 4 6 8 10 } {
+    if { [lindex $argv $i] == "-" } {
+        set command "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-h" } {
+        set host "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-p" } {
+        set port "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-a" } {
+        set passwd "[lindex $argv [expr {$i + 1}]]"
+    }
+    if { [lindex $argv $i] == "-s" } {
+        set select "[lindex $argv [expr {$i + 1}]]"
+    }
+}
+
+spawn $command -h $host -p $port
+
+if { "$passwd" != "" } {
+    expect {
+        "$host:$port>" { send "auth $passwd\r" }
+    }
+}
+
+if { "$select" != "" } {
+    expect {
+        "OK" { send "select $select\r" }
+    }
+}
+
+interact
