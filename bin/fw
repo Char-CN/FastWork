@@ -7,21 +7,22 @@ s_p=`dirname $0`
 export suffix=".fw"
 # source ${s_p}/fw_commons
 
+file_path="${HOME}/${suffix}"
+if [[ ! -f $file_path ]]; then
+    file_path="${s_p}/${suffix}"
+fi
+
 ### config file
 # [path]
 # ssh /usr/local/bin
 ### config file end
 # usage: $(read_file_by_group $file_path "path" "ssh" "default_value")
 function read_file_by_group() {
-    file_path="${HOME}/${1}"
-    if [[ ! -f $file_path ]]; then
-        file_path="${s_p}/${1}"
-    fi
     # group add []
-    key_group="[${2}]"
+    key_group="[${1}]"
     # key add space
-    key_name="${3}"
-    default_value="${4}"
+    key_name="${2}"
+    default_value="${3}"
     in_group="0"
     if [ -f ${file_path} ]; then
         rst=""
@@ -49,22 +50,63 @@ function read_file_by_group() {
     fi
 }
 
-ssh=$(read_file_by_group ${suffix} "ssh" "$1")
-mysql=$(read_file_by_group ${suffix} "mysql" "$1")
-redis=$(read_file_by_group ${suffix} "redis" "$1")
+function read_file_by_group_show() {
+    # group add []
+    key_group="[${1}]"
+    in_group="0"
+    if [ -f ${file_path} ]; then
+        rst=""
+        while read line
+        do
+            if [[ "$line" =~ ^\s*"$key_group"\s* ]]; then
+                in_group="1"
+                rst="$key_group"
+                continue
+            elif [[ "$in_group" == "1" && "$line" =~ ^\s*\[.*\]\s* ]]; then
+                in_group="2"
+                break
+            fi
+            if [[ "$in_group" == "1" && "${line:0:1}" != "#" && "$line" =~ ^( )*.*( )+.* ]]; then
+                link=$(echo "${line}" | grep -Eo "\w*"| head -n 1)
+                rst="${rst} ${link}"
+                continue
+            fi
+        done < ${file_path}
+        if [[ "$rst" == "$key_group" ]]; then
+            echo "$rst empty!"
+        else 
+            echo $rst
+        fi
+    else
+        echo ""
+    fi
+
+}
+
+if [[ "$1" == "" ]]; then
+    echo "========= config: $file_path ========="
+    echo $(read_file_by_group_show "ssh")
+    echo $(read_file_by_group_show "mysql")
+    echo $(read_file_by_group_show "redis")
+    exit 0
+fi
+
+ssh=$(read_file_by_group "ssh" "$1" "")
+mysql=$(read_file_by_group "mysql" "$1" "")
+redis=$(read_file_by_group "redis" "$1" "")
 
 if [[ "$ssh" != "" ]];
 then
-    command_path=$(read_file_by_group ${suffix} "path" "ssh" "ssh")
+    command_path=$(read_file_by_group "path" "ssh" "ssh")
     expect ${s_p}/fw_expect_go $ssh - $command_path
     if [ $? != 0 ]; then
         echo "ERROR !!! Connection fail, please check [vpn or ss or network proxy ...] is open?"
     fi
 elif [[ "$mysql" != "" ]]; then
-    command_path=$(read_file_by_group ${suffix} "path" "mysql" "mysql")
+    command_path=$(read_file_by_group "path" "mysql" "mysql")
     expect ${s_p}/fw_expect_db $mysql - $command_path
 elif [[ "$redis" != "" ]]; then
-    command_path=$(read_file_by_group ${suffix} "path" "redis" "redis-cli")
+    command_path=$(read_file_by_group "path" "redis" "redis-cli")
     expect ${s_p}/fw_expect_db_redis $redis - $command_path
 else
     echo "ERROR !!! $1 is not found in group [ssh] [mysql] [redis]."
