@@ -6,18 +6,25 @@
 # mysql /usr/bin/mysql
 # open redis root path config. default redis-cli
 # redis /usr/bin/redis-cli
+# open kafka-producer root path config. default kafka-console-producer.sh
+# kafka-producer $kafka_bin_path/kafka-console-producer.sh
 
-######### ssh config discription
+######### ssh config description
 # paramter : alias -h host -u user_name [-P password] [-p port]
 # exsample : s1 -h 127.0.0.1 -u root -P root -p 22
 [ssh]
 
-######### mysql config discription
+######### mysql config description
 # paramter : alias -h host -u user_name -P password [-p port] [-D database]
 # exsample : my -h 127.0.0.1 -u root -p root -P 3306 -D test
 [mysql]
 
-######### redis config discription
+######### redis config description
 # paramter : alias -h host [-p port] [-a password] [-s select]
 # exsample : re -h 127.0.0.1 -p 6379 -a root -s 0
 [redis]
+
+######### kafka-producer config description
+# paramter : alias -b host -t topic_name -f file_path -sleep_s
+# exsample : ss -b host -t topic_name -f file_path -sleep_s 0.5
+[kafka-producer]

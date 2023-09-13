@@ -5,7 +5,8 @@ set topic ""
 set file ""
 set sleep_s ""
 set quit ""
-foreach i { 0 2 4 6 8 10 12 14 16 18 20 } {
+set command ""
+foreach i { 0 2 4 6 8 10 12 14 16 18 20 22 } {
     if { [lindex $argv $i] == "-broker" } {
         set broker "[lindex $argv [expr {$i + 1}]]"
     }
@@ -36,8 +37,12 @@ foreach i { 0 2 4 6 8 10 12 14 16 18 20 } {
     if { [lindex $argv $i] == "-q" } {
         set quit "\04"
     }
+    if { [lindex $argv $i] == "-" } {
+        set command "[lindex $argv [expr {$i + 1}]]"
+    }
 }
-spawn kafka-console-producer.sh --broker-list $broker --topic $topic
+
+spawn $command --broker-list $broker --topic $topic
 
 set fid [open $file r]
 while {[gets $fid line] >= 0} {

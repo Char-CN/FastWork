@@ -80,7 +80,40 @@ function read_file_by_group_show() {
     else
         echo ""
     fi
+}
 
+function read_file_by_group_defails_show() {
+    # group add []
+    key_group="[${1}]"
+    in_group="0"
+    if [ -f ${file_path} ]; then
+        while read line
+        do
+            if [[ "$line" =~ ^\s*"$key_group"\s* ]]; then
+                in_group="1"
+                if [ "$(uname)" == "Darwin" ]; then
+                  # Mac
+                  echo -e "\033[1;36m$key_group\033[0m"
+                elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+                  # Linux
+                  echo -e "$key_group"
+                else
+                  # 其它
+                  echo -e "$key_group"
+                fi
+                continue
+            elif [[ "$in_group" == "1" && "$line" =~ ^\s*\[.*\]\s* ]]; then
+                in_group="2"
+                break
+            fi
+            if [[ "$in_group" == "1" && "${line:0:1}" != "#" && "$line" =~ ^( )*.*( )+.* ]]; then
+                echo -e "${line}"
+                continue
+            fi
+        done < ${file_path}
+    else
+        echo -e "\n"
+    fi
 }
 
 if [[ "$1" == "" ]]; then
@@ -88,19 +121,38 @@ if [[ "$1" == "" ]]; then
     echo $(read_file_by_group_show "ssh")
     echo $(read_file_by_group_show "mysql")
     echo $(read_file_by_group_show "redis")
+    echo $(read_file_by_group_show "kafka-producer")
+    exit 0
+fi
+
+if [[ "$1" == "conf" ]] || [[ "$1" == "config" ]] || [[ "$1" == "show" ]]; then
+    echo "========= config path: $file_path ========="
+    if [[ "$2" == "" ]] || [[ "$2" == "ssh" ]]; then
+        read_file_by_group_defails_show "ssh"
+    fi
+    if [[ "$2" == "" ]] || [[ "$2" == "mysql" ]]; then
+        read_file_by_group_defails_show "mysql"
+    fi
+    if [[ "$2" == "" ]] || [[ "$2" == "redis" ]]; then
+        read_file_by_group_defails_show "redis"
+    fi
+    if [[ "$2" == "" ]] || [[ "$2" == "kafka" ]]; then
+        read_file_by_group_defails_show "kafka-producer"
+    fi
     exit 0
 fi
 
 ssh=$(read_file_by_group "ssh" "$1" "")
 mysql=$(read_file_by_group "mysql" "$1" "")
 redis=$(read_file_by_group "redis" "$1" "")
+kafka_producer=$(read_file_by_group "kafka-producer" "$1" "")
 
 if [[ "$ssh" != "" ]];
 then
     command_path=$(read_file_by_group "path" "ssh" "ssh")
     expect ${s_p}/fw_expect_go $ssh - $command_path
     if [ $? != 0 ]; then
-        echo "ERROR !!! Connection fail, please check [vpn or ss or network proxy ...] is open?"
+        echo "ERROR! Connection fail, please check [vpn or ss or network proxy ...] is open?"
     fi
 elif [[ "$mysql" != "" ]]; then
     command_path=$(read_file_by_group "path" "mysql" "mysql")
@@ -108,8 +160,11 @@ elif [[ "$mysql" != "" ]]; then
 elif [[ "$redis" != "" ]]; then
     command_path=$(read_file_by_group "path" "redis" "redis-cli")
     expect ${s_p}/fw_expect_db_redis $redis - $command_path
+elif [[ "$kafka_producer" != "" ]]; then
+    command_path=$(read_file_by_group "path" "kafka-producer" "kafka-console-producer.sh")
+    expect ${s_p}/fw_expect_kafka_send $kafka_producer - $command_path
 else
-    echo "ERROR !!! $1 is not found in group [ssh] [mysql] [redis]."
+    echo "ERROR! $1 is not found in group [ssh] [mysql] [redis] [kafka-producer]."
 fi
 
 exit 0
